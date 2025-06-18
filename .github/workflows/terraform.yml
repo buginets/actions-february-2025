@@ -12,4 +12,7 @@ jobs:
     - name: Checkout SCM
       uses: actions/checkout@v4  
       with: 
-        repository: buginets/actions-terraform    
+        repository: buginets/actions-terraform  
+
+
+    - run: ls      
