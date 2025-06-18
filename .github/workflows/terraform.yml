@@ -2,7 +2,16 @@ name: Create EC2
 
 on: 
   workflow_dispatch:
-  
+    inputs:
+      action:
+        description: 'terraform action to perform'
+        required: true
+        default: 'apply'
+        type: choice
+        options: 
+          - apply
+          - destroy
+
 
 
   # push: 
