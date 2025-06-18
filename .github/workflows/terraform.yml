@@ -1,8 +1,12 @@
 name: Create EC2
 
 on: 
-  push: 
-    branches: [ "main" ]
+  workflow_dispatch:
+  
+
+
+  # push: 
+  #   branches: [ "main" ]
 
 jobs: 
   deploy:
@@ -33,4 +37,4 @@ jobs:
       run: terraform plan 
 
     - name: Terraform Apply
-      run: terraform destroy -auto-approve             
+      run: terraform apply -auto-approve             
