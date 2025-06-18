@@ -10,4 +10,6 @@ jobs:
 
     steps:
     - name: Checkout SCM
-      uses: actions/checkout@v4      
+      uses: actions/checkout@v4  
+      with: 
+        repository: buginets/actions-terraform    
