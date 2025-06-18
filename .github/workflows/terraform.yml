@@ -1,14 +1,14 @@
 name: Create EC2
 
-on: 
+on:
   workflow_dispatch:
     inputs:
       action:
-        description: 'terraform action to perform'
+        description: 'Terraform action to perform'
         required: true
         default: 'apply'
         type: choice
-        options: 
+        options:
           - apply
           - destroy
 
@@ -18,30 +18,25 @@ on:
         default: 'us-east-1'
 
       ami_id:
-        description: 'Enter ami ID'
+        description: 'Enter ami id'
         required: true
 
       instance_type:
         description: 'Provide instance type'
         required: true
-        default: 't2.micro'        
+        default: 't2.micro'
 
-
-
-  # push: 
-  #   branches: [ "main" ]
-
-jobs: 
+jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout SCM
-      uses: actions/checkout@v4  
-      with: 
-        repository: buginets/actions-terraform  
+      uses: actions/checkout@v4
+      with:
+        repository: buginets/actions-terraform
 
-    - name: Download terraform
+    - name: Download Terraform
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: "1.12.2"
@@ -51,7 +46,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1   
+        aws-region: us-east-1
 
     - name: Create tfvars file
       run: |
@@ -59,18 +54,18 @@ jobs:
         ami_id = "${{ inputs.ami_id }}"
         instance_type = "${{ inputs.instance_type }}"
         region = "${{ inputs.region }}"
-        EOF      
+        EOF
 
     - name: Terraform Init
-      run: terraform init    
+      run: terraform init
 
     - name: Terraform Plan
-      run: terraform plan 
+      run: terraform plan
 
-    - name: Terraform action
-      run: | 
-        if [[ "${{ inputs.action }}"  == "apply" ]]; then 
+    - name: Terraform Action
+      run: |
+        if [[ "${{ inputs.action }}" == "apply" ]]; then
           terraform apply -auto-approve
         else
-          terraform destroy -auto-approve   
-        fi           
+          terraform destroy -auto-approve
+        fi
