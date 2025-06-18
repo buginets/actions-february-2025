@@ -15,4 +15,5 @@ jobs:
         repository: buginets/actions-terraform  
 
 
-    - run: ls      
+    - name: Terraform Init
+      run: terraform init     
